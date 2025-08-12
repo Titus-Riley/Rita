@@ -1,15 +1,31 @@
 {
-  "name": "Flask Dev Container",
-  "image": "mcr.microsoft.com/devcontainers/python:3.11",
-  "features": {
-    "ghcr.io/devcontainers/features/python:1": {
-      "version": "3.11"
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "hostRequirements": {
+    "cpus": 4
+  },
+  "waitFor": "onCreateCommand",
+  "updateContentCommand": "pip install -r requirements.txt",
+  "postCreateCommand": "",
+  "postAttachCommand": {
+    "server": "flask --debug run"
+  },
+  "portsAttributes": {
+    "5000": {
+      "label": "Application",
+      "onAutoForward": "openPreview"
     }
   },
-  "postCreateCommand": "pip install flask",
   "customizations": {
+    "codespaces": {
+      "openFiles": [
+        "templates/index.html"
+      ]
+    },
     "vscode": {
-      "extensions": ["ms-python.python"]
+      "extensions": [
+        "ms-python.python"
+      ]
     }
-  }
+  },
+  "forwardPorts": [5000]
 }
